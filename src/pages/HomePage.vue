@@ -33,12 +33,18 @@
                 </button>
               </div>
   
+  
+              <div class="border-t border-gray-200 py-6 px-4 space-y-6">
+                <div v-for="page in navigation.pages" :key="page.name" class="flow-root">
+                  <a :href="page.href" class="-m-2 p-2 block font-medium text-gray-900">{{ page.name }}</a>
+                </div>
+              </div>
               <!-- Links -->
               <TabGroup as="div" class="mt-2">
                 <div class="border-b border-gray-200">
                   <TabList class="-mb-px flex px-4 space-x-8">
                     <Tab as="template" v-for="category in navigation.categories" :key="category.name" v-slot="{ selected }">
-                      <button :class="[selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent', 'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium']">
+                      <button :class="[selected ? 'text-primary border-primary' : 'text-gray-900 border-transparent', 'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium']">
                         {{ category.name }}
                       </button>
                     </Tab>
@@ -63,17 +69,11 @@
               </TabGroup>
   
               <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-                <div v-for="page in navigation.pages" :key="page.name" class="flow-root">
-                  <a :href="page.href" class="-m-2 p-2 block font-medium text-gray-900">{{ page.name }}</a>
-                </div>
-              </div>
-  
-              <div class="border-t border-gray-200 py-6 px-4 space-y-6">
                 <div class="flow-root">
-                  <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Create an account</a>
+                  <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Créer un compte</a>
                 </div>
                 <div class="flow-root">
-                  <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Sign in</a>
+                  <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Inscription</a>
                 </div>
               </div>
   
@@ -123,8 +123,8 @@
               </form>
   
               <div class="flex items-center space-x-6">
-                <a href="#" class="text-sm font-medium text-white hover:text-gray-100">Sign in</a>
-                <a href="#" class="text-sm font-medium text-white hover:text-gray-100">Create an account</a>
+                <a href="#" class="text-sm font-medium text-white hover:text-gray-100">Connexion</a>
+                <a href="#" class="text-sm font-medium text-white hover:text-gray-100">Inscription</a>
               </div>
             </div>
           </div>
@@ -137,19 +137,23 @@
                 <div class="hidden lg:flex-1 lg:flex lg:items-center">
                   <a href="#">
                     <span class="sr-only">Workflow</span>
-                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="" />
+                    <img class="h-8 w-auto" src="../assets/logo.png" alt="" />
                   </a>
                 </div>
   
                 <div class="hidden h-full lg:flex">
+                  
                   <!-- Flyout menus -->
                   <PopoverGroup class="px-4 bottom-0 inset-x-0">
+                    
                     <div class="h-full flex justify-center space-x-8">
+                      <a v-for="page in navigation.pages" :key="page.name" :href="page.href" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{ page.name }}</a>
+
                       <Popover v-for="category in navigation.categories" :key="category.name" class="flex" v-slot="{ open }">
                         <div class="relative flex">
-                          <PopoverButton :class="[open ? 'text-indigo-600' : 'text-gray-700 hover:text-gray-800', 'relative flex items-center justify-center transition-colors ease-out duration-200 text-sm font-medium']">
+                          <PopoverButton :class="[open ? 'text-primary' : 'text-gray-700 hover:text-gray-800', 'relative flex items-center justify-center transition-colors ease-out duration-200 text-sm font-medium']">
                             {{ category.name }}
-                            <span :class="[open ? 'bg-indigo-600' : '', 'absolute z-20 -bottom-px inset-x-0 h-0.5 transition ease-out duration-200']" aria-hidden="true" />
+                            <span :class="[open ? 'bg-primary' : '', 'absolute z-20 -bottom-px inset-x-0 h-0.5 transition ease-out duration-200']" aria-hidden="true" />
                           </PopoverButton>
                         </div>
   
@@ -182,24 +186,11 @@
                         </transition>
                       </Popover>
   
-                      <a v-for="page in navigation.pages" :key="page.name" :href="page.href" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{ page.name }}</a>
                     </div>
                   </PopoverGroup>
                 </div>
   
-                <!-- Mobile menu and search (lg-) -->
-                <div class="flex-1 flex items-center lg:hidden">
-                  <button type="button" class="-ml-2 bg-white p-2 rounded-md text-gray-400" @click="open = true">
-                    <span class="sr-only">Open menu</span>
-                    <MenuIcon class="h-6 w-6" aria-hidden="true" />
-                  </button>
-  
-                  <!-- Search -->
-                  <a href="#" class="ml-2 p-2 text-gray-400 hover:text-gray-500">
-                    <span class="sr-only">Search</span>
-                    <SearchIcon class="w-6 h-6" aria-hidden="true" />
-                  </a>
-                </div>
+            
   
                 <!-- Logo (lg-) -->
                 <a href="#" class="lg:hidden">
@@ -207,27 +198,6 @@
                   <img src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="" class="h-8 w-auto" />
                 </a>
   
-                <div class="flex-1 flex items-center justify-end">
-                  <a href="#" class="hidden text-sm font-medium text-gray-700 hover:text-gray-800 lg:block"> Search </a>
-  
-                  <div class="flex items-center lg:ml-8">
-                    <!-- Help -->
-                    <a href="#" class="p-2 text-gray-400 hover:text-gray-500 lg:hidden">
-                      <span class="sr-only">Help</span>
-                      <QuestionMarkCircleIcon class="w-6 h-6" aria-hidden="true" />
-                    </a>
-                    <a href="#" class="hidden text-sm font-medium text-gray-700 hover:text-gray-800 lg:block">Help</a>
-  
-                    <!-- Cart -->
-                    <div class="ml-4 flow-root lg:ml-8">
-                      <a href="#" class="group -m-2 p-2 flex items-center">
-                        <ShoppingBagIcon class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                        <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                        <span class="sr-only">items in cart, view bag</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -259,10 +229,10 @@
               </div>
               <div class="w-full bg-white h-48" />
             </div>
-            <div class="relative py-32">
-              <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">DIABETES & TECHNOLOGY</h1>
+            <div class="relative py-32 text-center">
+              <img class="inline" src="../assets/event.png">
               <div class="mt-4 sm:mt-6">
-                <a href="#" class="inline-block bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700">Shop Collection</a>
+                <router-link to="/register" class="inline-block bg-primary border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-primary">Inscription</router-link>
               </div>
             </div>
           </div>
@@ -299,7 +269,7 @@
           <div class="max-w-7xl mx-auto py-24 px-4 sm:px-6 sm:py-32 lg:pt-32 lg:px-8">
             <div class="md:flex md:items-center md:justify-between">
               <h2 id="favorites-heading" class="text-2xl font-extrabold tracking-tight text-gray-900">Trending Products</h2>
-              <a href="#" class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block">Shop the collection<span aria-hidden="true"> &rarr;</span></a>
+              <a href="#" class="hidden text-sm font-medium text-primary hover:text-primary md:block">Shop the collection<span aria-hidden="true"> &rarr;</span></a>
             </div>
   
             <div class="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
@@ -319,7 +289,7 @@
             </div>
   
             <div class="mt-8 text-sm md:hidden">
-              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Shop the collection<span aria-hidden="true"> &rarr;</span></a>
+              <a href="#" class="font-medium text-primary hover:text-primary">Shop the collection<span aria-hidden="true"> &rarr;</span></a>
             </div>
           </div>
         </section>
@@ -356,7 +326,7 @@
             <div class="grid grid-cols-1 md:grid-cols-12 md:grid-flow-col md:gap-x-8 md:gap-y-16 md:auto-rows-min">
               <!-- Image section -->
               <div class="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
-                <img src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="" class="h-8 w-auto" />
+                <img src="../assets/logo.png" alt="" class="h-8 w-auto" />
               </div>
   
               <!-- Sitemap sections -->
@@ -397,13 +367,12 @@
   
               <!-- Newsletter section -->
               <div class="mt-12 md:mt-0 md:row-start-2 md:col-start-3 md:col-span-8 lg:row-start-1 lg:col-start-9 lg:col-span-4">
-                <h3 class="text-sm font-medium text-gray-900">Sign up for our newsletter</h3>
-                <p class="mt-6 text-sm text-gray-500">The latest deals and savings, sent to your inbox weekly.</p>
+                <h3 class="text-sm font-medium text-gray-900">Inscription a la newsletter</h3>
                 <form class="mt-2 flex sm:max-w-md">
                   <label for="email-address" class="sr-only">Email address</label>
-                  <input id="email-address" type="text" autocomplete="email" required="" class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+                  <input id="email-address" type="text" autocomplete="email" required="" class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" />
                   <div class="ml-4 flex-shrink-0">
-                    <button type="submit" class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign up</button>
+                    <button type="submit" class="w-full bg-primary border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Inscription</button>
                   </div>
                 </form>
               </div>
@@ -441,51 +410,45 @@
   const navigation = {
     categories: [
       {
-        name: 'Women',
+        name: 'Activitées',
         featured: [
           {
-            name: 'New Arrivals',
+            name: 'Quiz',
             href: '#',
             imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
             imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
           },
           {
-            name: 'Basic Tees',
+            name: 'Poser une question',
             href: '#',
             imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
             imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
           },
           {
-            name: 'Accessories',
+            name: 'Sondage',
             href: '#',
             imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg',
             imageAlt: 'Model wearing minimalist watch with black wristband and white watch face.',
           },
-          {
-            name: 'Carry',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-04.jpg',
-            imageAlt: 'Model opening tan leather long wallet with credit card pockets and cash pouch.',
-          },
         ],
       },
       {
-        name: 'Men',
+        name: 'Médias',
         featured: [
           {
-            name: 'New Arrivals',
+            name: 'Gallerie',
             href: '#',
             imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg',
             imageAlt: 'Hats and sweaters on wood shelves next to various colors of t-shirts on hangers.',
           },
           {
-            name: 'Basic Tees',
+            name: 'Live Stream',
             href: '#',
             imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg',
             imageAlt: 'Model wearing light heather gray t-shirt.',
           },
           {
-            name: 'Accessories',
+            name: 'Bibliothèque vidéo',
             href: '#',
             imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg',
             imageAlt:
@@ -501,8 +464,8 @@
       },
     ],
     pages: [
-      { name: 'Company', href: '#' },
-      { name: 'Stores', href: '#' },
+      { name: 'Accueil', href: '#' },
+      { name: 'Orateurs', href: '#' },
     ],
   }
   const collections = [
